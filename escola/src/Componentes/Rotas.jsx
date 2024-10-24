@@ -6,6 +6,8 @@ import Alteracao from "../Paginas/Alteracao";
 import Exclusao from "../Paginas/Exclusao";
 import Erro from "../Paginas/Erro";
 
+import Menu from "./Menu";
+
 export default function Rotas() {
     return (
         <BrowserRouter>
