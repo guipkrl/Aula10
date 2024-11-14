@@ -22,3 +22,36 @@ db.connect((erro)=>{
         console.log("Conectado ao MySQL com sucesso");
     }
 });
+
+    // Rota para cadastrar usuário
+    app.post('/alunos', (req, res)=>{
+        const {nome, cidade, estado} = req.body;
+
+        const sql = 'INSERT INTO alunos (nome, cidade, estado) Values (?, ?, ?)';
+
+        db.query(sql,[nome, cidade, estado],(err, result)=>{
+            if(err)
+            {
+                return res.status(500).json({error: 'Erro ao cadastrar aluno !'});
+            }
+            return res.status(201).json({message: 'Aluno cadastrado com sucesso !', id: result.insertId});
+        });
+    });
+
+    //Rota para consultar todos os usuários
+    app.get('/alunos', (req, res) => {
+        const sql = 'SELECT * FROM alunos';
+
+        db.query(sql, (err, results)=>{
+            if(err)
+            {
+                return res.status(500).json({error: 'Erro ao cadastrar aluno !'});
+            }
+            res.json(results);
+        });
+    });
+
+    // Iniciando o servidor
+    app.listen(PORT,()=>{
+        console.log(`Servidor rodando em http://localhost:${PORT}`);
+    });
